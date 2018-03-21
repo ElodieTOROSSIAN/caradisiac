@@ -1,8 +1,35 @@
-var client = require('./connection.js');
+var express    = require('express');        // call express
+var app        = express();                 // define our app using express
+var bodyParser = require('body-parser');
 
-client.cluster.health({},function(err,resp,status) {  
-  console.log("-- Client Health --",resp);
-});
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+var port = 9292;        // set our port
+
+// ROUTES FOR OUR API : route.js
+
+
+// REGISTER OUR ROUTES -------------------------------
+// all of our routes will be prefixed with /api
+
+//app.use('/api', router);  // appeller route.js
+
+var routes = require('./routes');
+routes(app);
+
+
+// START THE SERVER
+// =============================================================================
+app.listen(port);
+console.log('Magic happens on port ' + port);
+
+
+//CF : https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
 
 
 
