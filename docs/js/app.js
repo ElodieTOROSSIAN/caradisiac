@@ -1,3 +1,5 @@
+//CF : https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
+
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
@@ -11,25 +13,16 @@ app.use(bodyParser.json());
 
 var port = 9292;        // set our port
 
-// ROUTES FOR OUR API : route.js
-
-
-// REGISTER OUR ROUTES -------------------------------
-// all of our routes will be prefixed with /api
-
-//app.use('/api', router);  // appeller route.js
-
 var routes = require('./routes');
 routes(app);
 
-
-// START THE SERVER
-// =============================================================================
-app.listen(port);
-console.log('Magic happens on port ' + port);
+app.listen(port); //Start server
+console.log('Ecoute sur le port : ' + port);
 
 
-//CF : https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
+
+
+
 
 
 
