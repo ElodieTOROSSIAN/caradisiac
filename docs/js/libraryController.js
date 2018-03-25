@@ -8,12 +8,38 @@ exports.getElem = function(req, res) {
   }).catch(function(err) {
     errorHandler.error(res, err.message, "Failed to get albums");
   });*/
-  
+  cars.
   
   // Trouver les données
   
-
   
+  client.search({
+    index: 'cars',
+    type: 'posts',
+    body: {
+        query: {
+				  "query": {
+					"bool": {
+					  "must": [
+						{"range" : {
+							"fields.volume" : {
+								"gt" : 400
+							}
+						}
+					 }
+					  ]
+				  }
+				 }
+				}
+
+    }
+}).then(function(resp) {
+    console.log(resp);
+}, function(err) {
+    console.trace(err.message);
+});
+
+ //nous donne toutes les voiture avec un coffre avec un volume superieur a 400 
 };
 
 
@@ -74,50 +100,3 @@ exports.addElem = function(req, res) {
 //};
 
 }
-
-
-/*https://blog.raananweber.com/2015/11/24/simple-autocomplete-with-elasticsearch-and-node-js/*/
-
-
-
-/*
-const bulkIndex = function bulkIndex(index, type, data) {
-	console.log("OKKKKKKKK");
-  let bulkBody = [];
-
-  data.forEach(item => {
-	bulkBody.push({
-	  index: {
-		_index: uuid,
-		_brand: brand,
-		_volume: volume,
-		_model: model,
-		_name: name
-	  }
-	});
-
-	bulkBody.push(item);
-  });
-
-  esClient.bulk({body: bulkBody})
-  .then(response => {
-	console.log('here');
-	let errorCount = 0;
-	response.items.forEach(item => {
-	  if (item.index && item.index.error) {
-		console.log(++errorCount, item.index.error);
-	  }
-	});
-	console.log(
-	  `Successfully indexed ${data.length - errorCount}
-	   out of ${data.length} items`
-	);
-  })
-  .catch(console.err);
-};
-
-const test = function test() {
-  const articlesRaw = fs.readFileSync('data.json');
-  bulkIndex('library', 'article', articles);
-};
-*/
