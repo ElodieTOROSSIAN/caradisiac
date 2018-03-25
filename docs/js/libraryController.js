@@ -1,5 +1,6 @@
 var elasticsearch=require('elasticsearch');
 var errorHandler = require('./error.js');
+var fs = require('fs');
 
 exports.getElem = function(req, res) {
   /*Album.find({}).then(function(albums) {
@@ -18,30 +19,61 @@ exports.getElem = function(req, res) {
 
 exports.addElem = function(req, res) {
   //Enregister les données
-    const {getBrands} = require('node-car-api');
-
-	async function print () {
-	  const brands = await getBrands();
+  console.log("HELLO");
+    //const {getBrands} = require('node-car-api');
+	let cars = [];
+	//let ct = 0;
+	let enr = 1;
+	//async function print () {
+		
+	/*  const brands = await getBrands();
 		//console.log(brands);
 		for(i = 0; i<brands.length;i++) {
+			ct++;
 			const {getModels} = require('node-car-api');
 			async function print () {
 				const models = await getModels(brands[i]);
 				//console.log(models);
-				
-				
-				
-				
-				
+				cars.push(models);
+				ct--;
+				console.log(ct);
+				if(ct==0) {
+					fs.writeFile('cars.json', JSON.stringify(cars, null, 4), function(err){});
+					console.log("enregistement OK");
+					enr = 1;
+					console.log("Enr" + enr);
+				}
 			}
 		print();
-		}
+		}		
 	}
-print();
-res.json({message : "OK"});
-};
+	print();*/
+	//maintenant on enregistre dans la base de données
+	if(enr == 1) {
+		console.log("Debut envoie ElasticSearch ");
+		var client = new elasticsearch.Client({
+			host: 'localhost:9292',
+			log: 'trace'
+		}); 
+		var obj = JSON.parse(fs.readFileSync('cars.json', 'utf8'));
+		var i = 1;
+		obj.forEach(function(model)
+		{
+			cars.push( {index : { _index: 'cars', _type: 'model', _id: i }})
+			cars.push({ doc: model})
+			i++
+		});
+		console.log(cars);
+		client.bulk({
+		body : cars
+		}, function (err, resp) {
+		});
+		console.log("Envoie ElasticSearch OK");
+	}
+	//res.json({message : "OK"});
+//};
 
-
+}
 
 
 /*https://blog.raananweber.com/2015/11/24/simple-autocomplete-with-elasticsearch-and-node-js/*/
