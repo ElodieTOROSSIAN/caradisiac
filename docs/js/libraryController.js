@@ -3,17 +3,8 @@ var errorHandler = require('./error.js');
 var fs = require('fs');
 
 exports.getElem = function(req, res) {
-  /*Album.find({}).then(function(albums) {
-    res.status(200).json(albums);
-  }).catch(function(err) {
-    errorHandler.error(res, err.message, "Failed to get albums");
-  });*/
-  cars.
-  
   // Trouver les données
-  
-  
-  client.search({
+	client.search({
     index: 'cars',
     type: 'posts',
     body: {
