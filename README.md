@@ -108,7 +108,7 @@ Display the list of the cars with React
 
 
 ## My part 
-In a first part, I started by creating the API. Then, I create function : populate. 
-Populate premites to import data in elasticSearch. I save the information in a JSON and I try to save it in Elasticsearch. 
-Suv permites to found all 4*4 that have a trunk of more than 400 m^3 thanks to a request on Elasticsearch.
-I had difficulties to import the data on Elasticsearch. 
+* In a first part, I started by creating the API. Then, I create function : populate. 
+* Populate premites to import data in elasticSearch. I save the information in a JSON and I try to save it in Elasticsearch. 
+* So, Suv permites to found all 4*4 that have a trunk of more than 400 m^3 thanks to a request on Elasticsearch.
+* I had difficulties to import the data on Elasticsearch. 
